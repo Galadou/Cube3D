@@ -13,7 +13,7 @@ PARS =  parsing/ft_pexit.c \
 		parsing/parsing/ft_init_data.c \
 		parsing/parsing/ft_parsing.c \
 		parsing/parsing/ft_store_map.c \
-		parsing/parsing/ft_utils.c
+		parsing/parsing/ft_utils.c \
 
 
 SRCS = 	mandatory/main.c\
@@ -24,9 +24,7 @@ SRCS = 	mandatory/main.c\
 		mandatory/ft_mouse_move.c\
 		mandatory/ft_key_hook.c\
 		mandatory/ft_print_ray.c\
-		mandatory/ft_move_hook.c\
-		mandatory/ft_print_fps.c\
-		mandatory/ft_define_color_text.c
+		mandatory/ft_move_hook.c
 
 
 BONUS = bonus/main.c\
@@ -37,12 +35,7 @@ BONUS = bonus/main.c\
 		bonus/ft_mouse_move.c\
 		bonus/ft_key_hook.c\
 		bonus/ft_print_ray.c\
-		bonus/ft_move_hook.c\
-		bonus/ft_print_fps.c\
-		bonus/ft_define_color_text.c\
-		bonus/ft_cinematic.c
-
-
+		bonus/ft_move_hook.c
 
 
 OBJS=$(SRCS:.c=.o) $(PARS:.c=.o)
@@ -53,7 +46,7 @@ RM =rm -f
 
 CC = clang
 
-CFLAGS= -I./MLX42/include -I./libft/include -I./includes -Wall -Werror -Wextra -g
+CFLAGS= -I./MLX42/include -I./libft/include -I./includes -g
 
 MLXFLAGS= -Iinclude -L./MLX42/build -lmlx42 -ldl -lglfw -pthread -lm -Ofast #Ofast is supposed to have better performance, but i can remove it
 
