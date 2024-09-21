@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 01:07:29 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/10 18:03:23 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/21 18:41:05 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,22 @@ void	ft_mouse_move(t_player *p)
 	if (p->game->pause == false)
 	{
 		p->or += (x - p->last_mouse_x) * 0.001;
+		mlx_set_mouse_pos(p->game->mlx, p->game->width / 2, \
+		p->game->height / 2);
+		p->last_mouse_x = p->game->width / 2;
+	}
+
+	if (p->game->cinematic == true)
+		return ;
+	if (!p->last_mouse_y)
+		p->last_mouse_y = p->game->height / 2;
+	if (p->game->pause == false)
+	{
+		p->p_look_angle -= (y - p->last_mouse_y) * 0.001;
+		if (p->p_look_angle > 1.0)
+			p->p_look_angle = 1.0;
+		if (p->p_look_angle < -1.0)
+			p->p_look_angle = -1.0;
 		mlx_set_mouse_pos(p->game->mlx, p->game->width / 2, \
 		p->game->height / 2);
 		p->last_mouse_x = p->game->width / 2;

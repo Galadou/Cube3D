@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:35:32 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/11 14:27:35 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/21 18:52:57 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_ray_casting
 	int		draw_start;
 	int		draw_end;
 	float	wall_hit_position;
+
 }	t_ray_casting;
 
 typedef struct s_game
@@ -91,6 +92,15 @@ typedef struct s_player
 	float			buf_fov;
 	float			buf_py;
 	float			buf_px;
+	
+	float			p_height;
+	float			p_look_angle;
+
+	float			last_px;
+	float			last_py;
+	float			last_value;
+	bool			footstep;
+	bool			up;
 
 	char			*freddy_walk;
 	
@@ -116,7 +126,10 @@ void		ft_move_wasd(t_player *p);
 void		ft_mouse_move(t_player *p);
 void		ft_key_hook(mlx_key_data_t keydata, void *param);
 
-void	ft_define_cinematic(t_player *p);
-void	ft_cinematic(t_player *p);
+void		ft_define_cinematic(t_player *p);
+void		ft_cinematic(t_player *p);
+
+float		ft_abs(float nb);
+
 
 #endif

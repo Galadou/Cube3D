@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 11:48:24 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/11 15:12:22 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/21 16:46:28 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_cinematic(t_player *p)
 
 	if (!p->freddy_walk)
 		p->freddy_walk = ft_strdup("paplay --volume=10000 bonus/song/tjoc.wav &");
-	if (p->posx < 36.5)
+	if (p->posx < 35.5)
 	{
 		p->posx = p->posx + 0.1;
 		if ((int)p->posx % 2 == 0)
@@ -83,7 +83,7 @@ void	ft_cinematic(t_player *p)
 		p->or = 0.0 * M_PI;
 
 	}
-	else if (p->posx > 36.5 && p->game->cinematic)
+	else if (p->posx > 35.5 && p->game->cinematic)
 	{
 		p->game->cinematic = false;
 		ft_redefine_cinematic_player(p);

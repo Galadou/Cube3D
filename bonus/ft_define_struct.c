@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:52:21 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/11 12:10:29 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/21 18:02:34 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ void	ft_check_and_resize(t_player *p)
 		|| !p->game->color_east || !p->game->dark || !p->game->flash
 		|| !p->game->image)
 		ft_ultimate_free(p);
-	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
+	mlx_set_window_size(p->game->mlx, 1920, 1080);
+	mlx_set_setting(MLX_STRETCH_IMAGE, true);
+	mlx_set_setting(MLX_FULLSCREEN, true);
+	mlx_set_setting(MLX_MAXIMIZED, true);
 }
 
 static void	ft_define_game(t_player *p)

@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:25:10 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/11 12:26:45 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/21 19:01:35 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ static void	ft_define_print_wall(t_player *p)
 	p->rc->wall_height = ((float)p->game->height / (p->rc->perp_wall_dist * \
 	(float)cos(p->or - p->rc->angle)));
 	p->rc->wall_height = (float)floor(p->rc->wall_height * 10.0) / 10.0;
-	p->rc->draw_start = -p->rc->wall_height / 2.0 + (float)p->game->mid_sy;
-	p->rc->draw_end = p->rc->wall_height / 2.0 + (float)p->game->mid_sy;
+	p->rc->draw_end = p->rc->wall_height / 2.0 + (float)p->game->mid_sy + (float)p->game->mid_sy * 0.5;
+	p->rc->draw_start = -p->rc->wall_height / 2.0 + (float)p->game->mid_sy + floor(((float)p->game->mid_sy * p->p_look_angle + p->rc->wall_height * p->p_height) * 1000) / 1000;
+	p->rc->draw_end = p->rc->wall_height / 2.0 + (float)p->game->mid_sy + floor(((float)p->game->mid_sy * p->p_look_angle + p->rc->wall_height * p->p_height) * 1000) / 1000;
 	if (p->rc->side == 1)
 	{
 		if (p->rc->stepy == -1)
@@ -81,6 +82,52 @@ static void	ft_find_side(t_player *p)
 	}
 }
 
+static void	ft_walk_movement(t_player *p)
+{
+	float value;
+	if (!p->last_px)
+		p->last_px = p->posx;
+	if (!p->last_py)
+		p->last_py = p->posy;
+	value = sqrt(pow(p->posx - p->last_px, 2) + pow(p->posy - p->last_py, 2));
+	if (!p->last_value)
+		p->last_value = value;
+	if (value != p->last_value && !p->up)
+	{
+		p->p_height += -0.006;
+		if (p->p_height < -0.03)
+		{
+			p->p_height = -0.03;
+			p->up = true;
+		}
+	}
+	else if (value != p->last_value && p->up)
+	{
+		p->p_height += 0.006;
+		if (p->p_height > 0.03)
+		{
+			p->p_height = 0.03;
+			p->up = false;
+		}
+	}
+	p->last_value = value;		
+	if (value >= 1.0)
+	{
+		if (p->footstep == true)
+		{
+			system("paplay --volume=40000 bonus/song/footstep1.wav &");
+			p->footstep = false;
+		}
+		else
+		{
+			system("paplay --volume=40000 bonus/song/footstep2.wav &");
+			p->footstep = true;
+		}
+		p->last_px = p->posx;
+		p->last_py = p->posy;
+	}
+}
+
 void	ft_ray_casting(void *param)
 {
 	t_player		*p;
@@ -93,6 +140,7 @@ void	ft_ray_casting(void *param)
 	sx = 0;
 	if (p->game->pause)
 		return ;
+	ft_walk_movement(p);
 	if (p->game->cinematic)
 		ft_cinematic(p);
 	gettimeofday(&time, NULL);

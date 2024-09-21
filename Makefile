@@ -40,7 +40,8 @@ BONUS = bonus/main.c\
 		bonus/ft_move_hook.c\
 		bonus/ft_print_fps.c\
 		bonus/ft_define_color_text.c\
-		bonus/ft_cinematic.c
+		bonus/ft_cinematic.c \
+		bonus/ft_utils.c
 
 
 
