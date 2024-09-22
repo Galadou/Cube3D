@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:25:10 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/21 19:01:35 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/22 12:55:47 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,12 @@ static void	ft_walk_movement(t_player *p)
 	{
 		if (p->footstep == true)
 		{
-			system("paplay --volume=40000 bonus/song/footstep1.wav &");
+			system("paplay --volume=30000 bonus/song/footstep1.wav &");
 			p->footstep = false;
 		}
 		else
 		{
-			system("paplay --volume=40000 bonus/song/footstep2.wav &");
+			system("paplay --volume=30000 bonus/song/footstep2.wav &");
 			p->footstep = true;
 		}
 		p->last_px = p->posx;
@@ -156,6 +156,7 @@ void	ft_ray_casting(void *param)
 		ft_print_ray(p, sx);
 		sx++;
 	}
+	ft_print_freddy(p);
 	gettimeofday(&time, NULL);
 	ft_print_fps(p, usec, sec, time);
 	ft_mouse_move(p);

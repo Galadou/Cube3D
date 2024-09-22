@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:35:32 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/21 18:52:57 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/22 12:52:58 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,19 @@ typedef struct s_game
 	bool			cinematic;
 }	t_game;
 
+typedef struct s_freddy
+{
+	float	posy;
+	float	posx;
+	mlx_texture_t	*freddy_left;
+	mlx_texture_t	*freddy_right;
+	mlx_image_t		*fr;
+	mlx_image_t		*fl;
+	bool			visible;
+
+}	t_freddy;
+
+
 typedef struct s_player
 {
 	float			posx;
@@ -107,6 +120,7 @@ typedef struct s_player
 	t_ray_casting	*rc;
 	t_game			*game;
 	t_data			*data;
+	t_freddy		*f;
 }	t_player;
 
 t_player	*ft_define_player(t_data *data);
@@ -130,6 +144,9 @@ void		ft_define_cinematic(t_player *p);
 void		ft_cinematic(t_player *p);
 
 float		ft_abs(float nb);
+
+
+void	ft_print_freddy(t_player *p);
 
 
 #endif

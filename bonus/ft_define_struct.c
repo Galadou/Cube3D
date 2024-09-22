@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:52:21 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/21 18:02:34 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/22 12:53:21 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,25 @@ static void	ft_define_game(t_player *p)
 	ft_define_color_text(p);
 }
 
+static t_freddy	*ft_define_freddy(t_player *p)
+{
+	t_freddy *f;
+	f = ft_calloc(1, sizeof(*f));
+	if (!f)
+		ft_ultimate_free(p);
+	f->freddy_left = mlx_load_png("parsing/textures/leftfreddy.png");
+	f->freddy_right = mlx_load_png("parsing/textures/rightfreddy.png");
+	if (!f->freddy_left || !f->freddy_right)
+		ft_ultimate_free(p);
+	f->fl = mlx_texture_to_image(p->game->mlx, f->freddy_left);
+	f->fr = mlx_texture_to_image(p->game->mlx, f->freddy_right);
+	if (!f->fl || !f->fr)
+		ft_ultimate_free(p);
+	f->posx = 8.0;
+	f->posy = 4.0; //a redefinir
+	return (f);
+}
+
 t_player	*ft_define_player(t_data *data)
 {
 	t_player	*p;
@@ -120,6 +139,7 @@ t_player	*ft_define_player(t_data *data)
 	p = ft_calloc(sizeof(*p), 1);
 	p->data = data;
 	ft_define_game(p);
+	p->f = ft_define_freddy(p);
 	p->posx = (float)p->data->x_spoint + 0.5;
 	p->posy = (float)p->data->y_spoint + 0.5;
 	p->move_speed = 0.05;
