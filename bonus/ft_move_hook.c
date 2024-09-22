@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 02:54:50 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/22 17:57:51 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/22 18:28:14 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,27 @@ void	ft_move_and_flashlight(mlx_key_data_t keydata, t_player *p)
 	{
 		mlx_set_window_size(p->game->mlx, 1920, 1080);
 		p->game->fullscreen = true;
-
 	}
-
-	
+	if (keydata.key == MLX_KEY_F1 && keydata.action == MLX_PRESS && p->game->print_fps == false)
+	{
+		p->game->print_fps = true;
+		if (p->game->fps_max)
+			p->game->fps_max->enabled = true;
+		if (p->game->fps)
+			p->game->fps->enabled = true;
+		if (p->game->fps_min)
+			p->game->fps_min->enabled = true;
+	}	
+	else if (keydata.key == MLX_KEY_F1 && keydata.action == MLX_PRESS && p->game->print_fps == true)
+	{
+		p->game->print_fps = false;
+		if (p->game->fps_max)
+			p->game->fps_max->enabled = false;
+		if (p->game->fps)
+			p->game->fps->enabled = false;
+		if (p->game->fps_min)
+			p->game->fps_min->enabled = false;
+	}	
 }
 
 //for bool to move or flashlight

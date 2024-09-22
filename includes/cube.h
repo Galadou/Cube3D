@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:35:32 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/22 17:56:28 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/22 18:17:20 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_game
 	uint32_t		*color_east;
 	bool			cinematic;
 	bool			fullscreen;
+	bool			print_fps;
 }	t_game;
 
 typedef struct s_freddy
