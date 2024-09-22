@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 18:00:20 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/10 18:03:56 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/22 22:06:04 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ void	ft_ultimate_free(t_player *p)
 			free(p->rc);
 		free(p);
 	}
+	system("pkill -9 paplay");
 	exit (1);
 }

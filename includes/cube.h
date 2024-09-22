@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:35:32 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/22 18:17:20 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/22 21:16:44 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,20 @@ typedef struct s_freddy
 {
 	float	posy;
 	float	posx;
+	float	bufx;
+	float	bufy;
+	bool	right;
 	mlx_texture_t	*freddy_left;
 	mlx_texture_t	*freddy_right;
 	mlx_image_t		*fr;
 	mlx_image_t		*fl;
+	mlx_texture_t	*flook;
+	mlx_image_t		*look;
+	mlx_texture_t	*fgolden;
+	mlx_image_t		*golden;
+	
 	bool			visible;
+	
 
 }	t_freddy;
 
@@ -108,16 +117,22 @@ typedef struct s_player
 	float			buf_py;
 	float			buf_px;
 	
+	
 	float			p_height;
 	float			p_look_angle;
 
+	//cinematic
 	float			last_px;
 	float			last_py;
 	float			last_value;
 	bool			footstep;
 	bool			up;
+	bool			start_run;
+	bool			seen;
+	int				last_nb;
 
 	char			*freddy_walk;
+	//end cinematic
 	
 	t_ray_casting	*rc;
 	t_game			*game;

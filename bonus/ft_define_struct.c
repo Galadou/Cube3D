@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:52:21 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/22 17:56:51 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/22 21:48:50 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,14 +124,22 @@ static t_freddy	*ft_define_freddy(t_player *p)
 		ft_ultimate_free(p);
 	f->freddy_left = mlx_load_png("parsing/textures/leftfreddy.png");
 	f->freddy_right = mlx_load_png("parsing/textures/rightfreddy.png");
-	if (!f->freddy_left || !f->freddy_right)
+	f->freddy_right = mlx_load_png("parsing/textures/rightfreddy.png");
+	f->flook = mlx_load_png("parsing/textures/flook.png");
+	f->fgolden = mlx_load_png("parsing/textures/goldenf.png");
+	if (!f->freddy_left || !f->freddy_right || !f->flook || !f->fgolden)
 		ft_ultimate_free(p);
 	f->fl = mlx_texture_to_image(p->game->mlx, f->freddy_left);
 	f->fr = mlx_texture_to_image(p->game->mlx, f->freddy_right);
-	if (!f->fl || !f->fr)
+	f->look =  mlx_texture_to_image(p->game->mlx, f->flook);
+	f->golden =  mlx_texture_to_image(p->game->mlx, f->fgolden);
+	f->golden->enabled = false;
+	mlx_resize_image(f->golden, 1700, 1700);
+	if (!f->fl || !f->fr || !f->look)
 		ft_ultimate_free(p);
 	f->posx = 9.0;
 	f->posy = 4.0; //a redefinir
+	f->right = false;
 	return (f);
 }
 

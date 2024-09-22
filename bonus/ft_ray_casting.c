@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:25:10 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/22 18:38:56 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/22 21:55:05 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,11 @@ void	ft_ray_casting(void *param)
 	if (p->game->pause)
 		return ;
 	ft_walk_movement(p);
+	if (p->f->golden->enabled)
+	{
+		usleep(90000);
+		p->f->golden->enabled = false;
+	}
 	if (p->game->cinematic)
 		ft_cinematic(p);
 	gettimeofday(&time, NULL);
@@ -167,26 +172,46 @@ void	ft_ray_casting(void *param)
 			float angle_diff = normalize_angle_diff(freddy_angle - p->rc->angle);
 
 			// Si l'angle de Freddy correspond à ce rayon, comparer les distances
-			mlx_delete_image(p->game->mlx, p->f->fl);
+			if (p->f->fl)
+				mlx_delete_image(p->game->mlx, p->f->fl);
+			if (p->f->fr)
+				mlx_delete_image(p->game->mlx, p->f->fr);
+			if (p->f->look)
+				mlx_delete_image(p->game->mlx, p->f->look);
 			if (fabs(angle_diff) < (p->fov / p->game->width))
 			{
 				// Si Freddy est plus proche que le mur, on le dessine
 				if (freddy_distance < p->rc->perp_wall_dist)
 				{
-					printf("oui\n");
 					// Calcul de la position et taille du sprite
-					int sprite_height = abs((int)(p->game->height / (freddy_distance * 2.0)));
+					int sprite_height = abs((int)(p->game->height / (freddy_distance * 1.0))); //1.0 a modifier pour changer le grandissement
 					//int sprite_y_offset = (int)(p->game->mid_sy * p->rc->angle);
-
-					// Supprimer l'image précédente de Freddy et la redessiner
-					p->f->fl = mlx_texture_to_image(p->game->mlx, p->f->freddy_left);
-					mlx_resize_image(p->f->fl, sprite_height, sprite_height);
-					// Dessiner Freddy à la position calculée
-					mlx_image_to_window(p->game->mlx, p->f->fl, sx, (p->game->height / 2) * p->p_look_angle /*- (sprite_height / 2) + sprite_y_offset*/);
+					if (!p->start_run)
+					{
+						p->f->look = mlx_texture_to_image(p->game->mlx, p->f->flook);
+						mlx_resize_image(p->f->look, sprite_height, sprite_height);
+						mlx_image_to_window(p->game->mlx, p->f->look, sx, ((p->game->height / 2)-50)/*- (sprite_height / 2) + sprite_y_offset*/);
+						// Supprimer l'image précédente de Freddy et la redessiner
+					}
+					else
+					{
+						if (p->f->right)
+						{
+							p->f->fr = mlx_texture_to_image(p->game->mlx, p->f->freddy_right);
+							mlx_resize_image(p->f->fr, sprite_height, sprite_height);
+							// Dessiner Freddy à la position calculée
+							mlx_image_to_window(p->game->mlx, p->f->fr, sx, ((p->game->height / 2) * p->p_look_angle) + 200/*- (sprite_height / 2) + sprite_y_offset*/);
+						}
+						else
+						{
+							p->f->fl = mlx_texture_to_image(p->game->mlx, p->f->freddy_left);
+							mlx_resize_image(p->f->fl, sprite_height, sprite_height);
+							// Dessiner Freddy à la position calculée
+							mlx_image_to_window(p->game->mlx, p->f->fl, sx, ((p->game->height / 2) * p->p_look_angle) + 200/*- (sprite_height / 2) + sprite_y_offset*/);
+						}
+					}
 					done = true;
 				}
-				else
-					printf("non\n");
 			}
 		}
 		//else
@@ -204,4 +229,5 @@ void	ft_ray_casting(void *param)
 	if (p->game->print_fps)
 		ft_print_fps(p, usec, sec, time);
 	ft_mouse_move(p);
+	
 }

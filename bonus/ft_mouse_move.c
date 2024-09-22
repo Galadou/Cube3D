@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 01:07:29 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/21 18:41:05 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/22 19:29:35 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_mouse_move(t_player *p)
 	int32_t	x;
 	int32_t	y;
 
+	if (p->game->cinematic)
+		return ;
 	if (!p->last_mouse_x)
 		p->last_mouse_x = p->game->width / 2;
 	mlx_get_mouse_pos(p->game->mlx, &x, &y);
