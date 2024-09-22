@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:25:10 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/22 12:55:47 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/22 17:52:42 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,47 @@ void	ft_ray_casting(void *param)
 		ft_find_side(p);
 		ft_define_print_wall(p);
 		ft_print_ray(p, sx);
+
+
+
+		
+		float dist_x = p->f->posx - p->posx;
+		float dist_y = p->f->posy - p->posy;
+		float freddy_distance = sqrt(dist_x * dist_x + dist_y * dist_y);
+		float freddy_angle = atan2(dist_y, dist_x);
+		float angle_diff = normalize_angle_diff(freddy_angle - p->rc->angle);
+
+		// Si l'angle de Freddy correspond à ce rayon, comparer les distances
+		if (fabs(angle_diff) < (p->fov / p->game->width))
+		{
+			// Si Freddy est plus proche que le mur, on le dessine
+			mlx_delete_image(p->game->mlx, p->f->fl);
+			if (freddy_distance < p->rc->perp_wall_dist)
+			{
+				printf("oui\n");
+				// Calcul de la position et taille du sprite
+				int sprite_screen_x = sx;
+				int sprite_height = abs((int)(p->game->height / (freddy_distance * 2.0)));
+				int sprite_y_offset = (int)(p->game->mid_sy * p->rc->angle);
+
+				// Supprimer l'image précédente de Freddy et la redessiner
+				p->f->fl = mlx_texture_to_image(p->game->mlx, p->f->freddy_left);
+				mlx_resize_image(p->f->fl, sprite_height, sprite_height);
+
+				// Dessiner Freddy à la position calculée
+				mlx_image_to_window(p->game->mlx, p->f->fl, sprite_screen_x, (p->game->height / 2) - (sprite_height / 2) + sprite_y_offset);
+			}
+			else
+				printf("non\n");
+		}
+
+
+
+
+		
 		sx++;
 	}
-	ft_print_freddy(p);
+	//ft_print_freddy(p);
 	gettimeofday(&time, NULL);
 	ft_print_fps(p, usec, sec, time);
 	ft_mouse_move(p);

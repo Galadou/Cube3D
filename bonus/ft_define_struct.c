@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:52:21 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/22 12:53:21 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/22 17:56:51 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,11 @@ void	ft_define_rc(t_player *p, int ex)
 	ft_ray_calcul(p);
 }
 
+
+
 void	ft_check_and_resize(t_player *p)
 {
+	p->game->fullscreen = true;
 	p->game->cinematic = true;
 	p->game->color_north = ft_calloc(sizeof(uint32_t), \
 	(p->data->map.t_no_path->height * p->data->map.t_no_path->width) + 1);
@@ -127,7 +130,7 @@ static t_freddy	*ft_define_freddy(t_player *p)
 	f->fr = mlx_texture_to_image(p->game->mlx, f->freddy_right);
 	if (!f->fl || !f->fr)
 		ft_ultimate_free(p);
-	f->posx = 8.0;
+	f->posx = 9.0;
 	f->posy = 4.0; //a redefinir
 	return (f);
 }

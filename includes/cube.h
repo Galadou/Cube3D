@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 18:35:32 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/22 12:52:58 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/22 17:56:28 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_game
 	uint32_t		*color_west;
 	uint32_t		*color_east;
 	bool			cinematic;
+	bool			fullscreen;
 }	t_game;
 
 typedef struct s_freddy
@@ -144,6 +145,9 @@ void		ft_define_cinematic(t_player *p);
 void		ft_cinematic(t_player *p);
 
 float		ft_abs(float nb);
+float		normalize_angle(float angle);
+float		normalize_angle_diff(float angle);
+
 
 
 void	ft_print_freddy(t_player *p);

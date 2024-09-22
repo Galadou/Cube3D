@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 02:54:50 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/21 18:00:17 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/22 17:57:51 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,21 @@ void	ft_move_and_flashlight(mlx_key_data_t keydata, t_player *p)
 		p->game->dark->enabled = 1;
 		p->game->flash->enabled = 0;
 	}
+
+	if (keydata.key == MLX_KEY_F11 && keydata.action == MLX_PRESS && p->game->fullscreen == true)
+	{
+		p->game->fullscreen = false;
+		mlx_set_window_size(p->game->mlx, 854, 480);
+
+	}
+	else if (keydata.key == MLX_KEY_F11 && keydata.action == MLX_PRESS && p->game->fullscreen == false)
+	{
+		mlx_set_window_size(p->game->mlx, 1920, 1080);
+		p->game->fullscreen = true;
+
+	}
+
+	
 }
 
 //for bool to move or flashlight
