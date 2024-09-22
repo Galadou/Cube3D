@@ -6,7 +6,7 @@
 /*   By: gmersch <gmersch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 02:54:50 by gmersch           #+#    #+#             */
-/*   Updated: 2024/09/22 18:28:14 by gmersch          ###   ########.fr       */
+/*   Updated: 2024/09/22 22:20:26 by gmersch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,12 @@ void	ft_move_and_flashlight(mlx_key_data_t keydata, t_player *p)
 			p->game->fps->enabled = false;
 		if (p->game->fps_min)
 			p->game->fps_min->enabled = false;
-	}	
+	}
+	if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS && p->game->cinematic)
+	{
+		p->posx = 35.6;
+	}
+	
 }
 
 //for bool to move or flashlight
